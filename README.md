@@ -1,6 +1,6 @@
 # ocom
 
-A parser combinator library written in OCaml.
+A [Parser Combinator](https://en.wikipedia.org/wiki/Parser_combinator) library written in [OCaml](https://ocaml.org/).
 
 ## Quick Start
 
