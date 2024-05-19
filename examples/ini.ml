@@ -37,7 +37,7 @@ let read_whole_file (file_path : string) : string =
 	s
 
 let section_name : string parser =
-  prefix "[" *> parse_while (( != ) ']') <* prefix "]"
+  prefix "[" *> parse_while (( != ) ']') <* any_char
 
 let is_space (x : char) = x == ' ' || x == '\n'
 
