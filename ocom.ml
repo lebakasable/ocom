@@ -133,5 +133,5 @@ let many (p : 'a parser) : 'a list parser =
     						input
     				in
     				let input' = loop input in
-    				Ok (input', !result)
+    				Ok (input', !result |> List.rev)
   }
