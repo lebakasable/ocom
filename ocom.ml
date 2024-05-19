@@ -37,6 +37,16 @@ let bind (f : 'a -> 'b parser) (p : 'a parser) : 'b parser =
 						| Error error -> Error error
 	}
 
+let parse_while (p : char -> bool) : string parser =
+  { run = fun input ->
+  					let n = String.length input.text in
+  					let i = ref 0 in
+  					while (String.get input.text !i |> p) && !i < n do
+    					incr i
+  					done;
+  					Ok (input_sub !i (n - !i) input, String.sub input.text 0 !i)
+  }
+
 let prefix (prefix_str : string) : string parser =
   { run = fun input ->
   					let unexpected_prefix_error =
@@ -102,4 +112,11 @@ let ( <|> ) (p1 : 'a parser) (p2 : 'a parser) : 'a parser =
 																							left_error.desc
 																							right_error.desc
 																		})
+	}
+
+let optional (p : 'a parser) : 'a option parser =
+	{ run = fun input ->
+						match p.run input with
+						| Ok (input', x) -> Ok (input', Some x)
+						| Error _ -> Ok (input, None)
 	}
